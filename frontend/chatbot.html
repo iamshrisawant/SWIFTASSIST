@@ -335,7 +335,16 @@
             messageDiv.appendChild(bubble);
             chatMessages.appendChild(messageDiv);
             chatMessages.scrollTop = chatMessages.scrollHeight;
+
+        if (sender === 'bot') {
+            const speakBtn = document.createElement('button');
+            speakBtn.textContent = '🔊';
+            speakBtn.className = 'speak-btn';
+            speakBtn.onclick = () => speakText(content);
+            messageDiv.appendChild(speakBtn);
         }
+
+    }
 
         function showTypingBubble() {
             if (typingBubble) return;
@@ -455,6 +464,24 @@
                 appendMessage('❌ Sorry, I encountered an error. Please try again later.', 'bot');
             }
         }
+        function speakText(text) {
+    const synth = window.speechSynthesis;
+    if (!synth) {
+        alert("Sorry, your browser doesn't support text-to-speech.");
+        return;
+    }
+
+    // Remove HTML tags if any
+    const plainText = text.replace(/<[^>]+>/g, '');
+
+    const utterance = new SpeechSynthesisUtterance(plainText);
+    utterance.lang = 'en-US';
+    utterance.rate = 1;
+    utterance.pitch = 1;
+    synth.cancel();  // Cancel any ongoing speech
+    synth.speak(utterance);
+}
+
     </script>
 </body>
 </html>
