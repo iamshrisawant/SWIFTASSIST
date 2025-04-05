@@ -1,0 +1,501 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Available Mechanics | SwiftAssist</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
+    <style>
+        :root {
+            --primary: #0d6efd;
+            --warning: #ffc107;
+            --danger: #dc3545;
+            --success: #198754;
+            --info: #0dcaf0;
+            --dark: #212529;
+            --light: #f8f9fa;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--light);
+        }
+        
+        .mechanics-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 30px 15px;
+        }
+        
+        .header-section {
+            background-color: var(--primary);
+            color: white;
+            padding: 30px;
+            border-radius: 10px 10px 0 0;
+            margin-bottom: 0;
+        }
+        
+        .mechanics-card {
+            background-color: white;
+            border-radius: 0 0 10px 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            overflow: hidden;
+        }
+        
+        .mechanics-body {
+            padding: 30px;
+        }
+        
+        .mechanic-card {
+            border: 1px solid rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 20px;
+            transition: all 0.3s ease;
+        }
+        
+        .mechanic-card:hover {
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transform: translateY(-3px);
+        }
+        
+        .mechanic-card.selected {
+            border: 2px solid var(--primary);
+            background-color: rgba(var(--primary-rgb), 0.05);
+        }
+        
+        .mechanic-avatar {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 3px solid var(--primary);
+        }
+        
+        .mechanic-rating {
+            color: var(--warning);
+            font-weight: 600;
+        }
+        
+        .eta-badge {
+            background-color: var(--success);
+            color: white;
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-weight: 600;
+        }
+        
+        .price-tag {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary);
+        }
+        
+        .map-container {
+            height: 300px;
+            border-radius: 10px;
+            overflow: hidden;
+            background-color: #eee;
+            position: relative;
+        }
+        
+        .map-placeholder {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: #f0f0f0;
+            color: #666;
+        }
+        
+        .btn-select {
+            width: 100%;
+            padding: 10px;
+            font-weight: 600;
+        }
+        
+        .service-details {
+            background-color: rgba(var(--primary-rgb), 0.05);
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 30px;
+        }
+        
+        .loading-spinner {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 200px;
+        }
+        
+        @media (max-width: 768px) {
+            .mechanic-avatar {
+                width: 60px;
+                height: 60px;
+            }
+            
+            .mechanics-body {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container">
+            <a class="navbar-brand" href="index.html">
+                <h2 class="mb-0">SwiftAssist</h2>
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.html">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="services.html">Services</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="request.html">Request Help</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="contact.html">Contact</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Mechanics Listing Section -->
+    <div class="mechanics-container">
+        <div class="header-section">
+            <div class="row align-items-center">
+                <div class="col-md-8">
+                    <h1><i class="bi bi-tools me-3"></i>Available Mechanics</h1>
+                    <p class="lead mb-0">We found 5 mechanics nearby who can help with your flat tire</p>
+                </div>
+                <div class="col-md-4 text-md-end mt-3 mt-md-0">
+                    <div class="d-inline-block bg-white text-dark p-2 rounded">
+                        <i class="bi bi-geo-alt-fill text-primary me-2"></i>
+                        <span id="userLocation">Near 34.05, -118.24</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="mechanics-card">
+            <div class="mechanics-body">
+                <div class="service-details">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <h4><i class="bi bi-car-front-fill me-2"></i>Service Request Details</h4>
+                            <ul class="list-unstyled">
+                                <li><strong>Vehicle:</strong> Toyota Camry 2018</li>
+                                <li><strong>Issue:</strong> Flat rear left tire</li>
+                                <li><strong>Location:</strong> Near Santa Monica Blvd</li>
+                            </ul>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="map-container mt-3 mt-md-0">
+                                <div class="map-placeholder">
+                                    <i class="bi bi-map me-2"></i> Map loading...
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <h4 class="mb-4">Select a Mechanic</h4>
+                <div class="alert alert-info">
+                    <i class="bi bi-info-circle-fill me-2"></i> These mechanics are available now. Please review their quotes and estimated arrival times.
+                </div>
+                
+                <!-- Loading State (would be removed when mechanics load) -->
+                <div class="loading-spinner d-none">
+                    <div class="spinner-border text-primary" role="status">
+                        <span class="visually-hidden">Loading...</span>
+                    </div>
+                    <span class="ms-3">Finding available mechanics near you...</span>
+                </div>
+                
+                <!-- Mechanics List -->
+                <div class="row" id="mechanicsList">
+                    <!-- Mechanic 1 -->
+                    <div class="col-lg-6">
+                        <div class="mechanic-card selected" id="mechanic1">
+                            <div class="row">
+                                <div class="col-3 col-md-2">
+                                    <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Mechanic" class="mechanic-avatar">
+                                </div>
+                                <div class="col-9 col-md-10">
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <h5>Mike's Auto Service</h5>
+                                            <div class="d-flex align-items-center mb-2">
+                                                <span class="mechanic-rating me-2">4.8</span>
+                                                <i class="bi bi-star-fill text-warning"></i>
+                                                <i class="bi bi-star-fill text-warning"></i>
+                                                <i class="bi bi-star-fill text-warning"></i>
+                                                <i class="bi bi-star-fill text-warning"></i>
+                                                <i class="bi bi-star-half text-warning"></i>
+                                                <span class="ms-2 small text-muted">(142 reviews)</span>
+                                            </div>
+                                            <div class="d-flex align-items-center">
+                                                <i class="bi bi-geo-alt me-2 text-muted"></i>
+                                                <span class="small">1.2 miles away</span>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6 mt-3 mt-md-0">
+                                            <div class="d-flex justify-content-between align-items-center mb-2">
+                                                <span class="eta-badge"><i class="bi bi-clock me-1"></i> 8-12 mins</span>
+                                                <span class="price-tag">$45</span>
+                                            </div>
+                                            <p class="small text-muted mb-2">Base service charge</p>
+                                            <button class="btn btn-primary btn-select" onclick="selectMechanic('mechanic1')">
+                                                <i class="bi bi-check-circle me-2"></i> Selected
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Mechanic 2 -->
+                    <div class="col-lg-6">
+                        <div class="mechanic-card" id="mechanic2">
+                            <div class="row">
+                                <div class="col-3 col-md-2">
+                                    <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="Mechanic" class="mechanic-avatar">
+                                </div>
+                                <div class="col-9 col-md-10">
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <h5>QuickFix Mobile Mechanics</h5>
+                                            <div class="d-flex align-items-center mb-2">
+                                                <span class="mechanic-rating me-2">4.9</span>
+                                                <i class="bi bi-star-fill text-warning"></i>
+                                                <i class="bi bi-star-fill text-warning"></i>
+                                                <i class="bi bi-star-fill text-warning"></i>
+                                                <i class="bi bi-star-fill text-warning"></i>
+                                                <i class="bi bi-star-fill text-warning"></i>
+                                                <span class="ms-2 small text-muted">(89 reviews)</span>
+                                            </div>
+                                            <div class="d-flex align-items-center">
+                                                <i class="bi bi-geo-alt me-2 text-muted"></i>
+                                                <span class="small">0.8 miles away</span>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6 mt-3 mt-md-0">
+                                            <div class="d-flex justify-content-between align-items-center mb-2">
+                                                <span class="eta-badge"><i class="bi bi-clock me-1"></i> 5-8 mins</span>
+                                                <span class="price-tag">$55</span>
+                                            </div>
+                                            <p class="small text-muted mb-2">Includes premium service</p>
+                                            <button class="btn btn-outline-primary btn-select" onclick="selectMechanic('mechanic2')">
+                                                Select This Mechanic
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Mechanic 3 -->
+                    <div class="col-lg-6">
+                        <div class="mechanic-card" id="mechanic3">
+                            <div class="row">
+                                <div class="col-3 col-md-2">
+                                    <img src="https://randomuser.me/api/portraits/men/67.jpg" alt="Mechanic" class="mechanic-avatar">
+                                </div>
+                                <div class="col-9 col-md-10">
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <h5>John's Roadside Assistance</h5>
+                                            <div class="d-flex align-items-center mb-2">
+                                                <span class="mechanic-rating me-2">4.7</span>
+                                                <i class="bi bi-star-fill text-warning"></i>
+                                                <i class="bi bi-star-fill text-warning"></i>
+                                                <i class="bi bi-star-fill text-warning"></i>
+                                                <i class="bi bi-star-fill text-warning"></i>
+                                                <i class="bi bi-star text-warning"></i>
+                                                <span class="ms-2 small text-muted">(203 reviews)</span>
+                                            </div>
+                                            <div class="d-flex align-items-center">
+                                                <i class="bi bi-geo-alt me-2 text-muted"></i>
+                                                <span class="small">1.5 miles away</span>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6 mt-3 mt-md-0">
+                                            <div class="d-flex justify-content-between align-items-center mb-2">
+                                                <span class="eta-badge"><i class="bi bi-clock me-1"></i> 10-15 mins</span>
+                                                <span class="price-tag">$40</span>
+                                            </div>
+                                            <p class="small text-muted mb-2">Standard service charge</p>
+                                            <button class="btn btn-outline-primary btn-select" onclick="selectMechanic('mechanic3')">
+                                                Select This Mechanic
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Mechanic 4 -->
+                    <div class="col-lg-6">
+                        <div class="mechanic-card" id="mechanic4">
+                            <div class="row">
+                                <div class="col-3 col-md-2">
+                                    <img src="https://randomuser.me/api/portraits/women/28.jpg" alt="Mechanic" class="mechanic-avatar">
+                                </div>
+                                <div class="col-9 col-md-10">
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <h5>Speedy Tire Service</h5>
+                                            <div class="d-flex align-items-center mb-2">
+                                                <span class="mechanic-rating me-2">4.6</span>
+                                                <i class="bi bi-star-fill text-warning"></i>
+                                                <i class="bi bi-star-fill text-warning"></i>
+                                                <i class="bi bi-star-fill text-warning"></i>
+                                                <i class="bi bi-star-fill text-warning"></i>
+                                                <i class="bi bi-star-half text-warning"></i>
+                                                <span class="ms-2 small text-muted">(76 reviews)</span>
+                                            </div>
+                                            <div class="d-flex align-items-center">
+                                                <i class="bi bi-geo-alt me-2 text-muted"></i>
+                                                <span class="small">2.1 miles away</span>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6 mt-3 mt-md-0">
+                                            <div class="d-flex justify-content-between align-items-center mb-2">
+                                                <span class="eta-badge"><i class="bi bi-clock me-1"></i> 12-18 mins</span>
+                                                <span class="price-tag">$35</span>
+                                            </div>
+                                            <p class="small text-muted mb-2">Economy service option</p>
+                                            <button class="btn btn-outline-primary btn-select" onclick="selectMechanic('mechanic4')">
+                                                Select This Mechanic
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Selected Mechanic Confirmation -->
+                <div class="selected-mechanic-confirm mt-5 p-4 bg-light rounded d-none" id="confirmationSection">
+                    <div class="row align-items-center">
+                        <div class="col-md-8">
+                            <h4><i class="bi bi-check-circle-fill text-success me-2"></i> Mechanic Selected</h4>
+                            <p class="mb-0">You've selected <strong id="selectedMechanicName">Mike's Auto Service</strong> for your tire change service.</p>
+                        </div>
+                        <div class="col-md-4 text-md-end mt-3 mt-md-0">
+                            <button class="btn btn-success btn-lg" onclick="confirmSelection()">
+                                <i class="bi bi-check-circle me-2"></i> Confirm & Continue
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-dark text-white py-4">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <h5>SwiftAssist</h5>
+                    <p>Smart Roadside Assistance connecting drivers with mechanics for faster, safer journeys.</p>
+                </div>
+                <div class="col-md-3">
+                    <h5>Quick Links</h5>
+                    <ul class="list-unstyled">
+                        <li><a href="index.html" class="text-white text-decoration-none">Home</a></li>
+                        <li><a href="services.html" class="text-white text-decoration-none">Services</a></li>
+                        <li><a href="request.html" class="text-white text-decoration-none">Request Help</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-3">
+                    <h5>Contact</h5>
+                    <ul class="list-unstyled">
+                        <li><i class="bi bi-telephone me-2"></i> (800) 555-1234</li>
+                        <li><i class="bi bi-envelope me-2"></i> help@swiftassist.com</li>
+                    </ul>
+                </div>
+            </div>
+            <hr>
+            <div class="text-center">
+                <p class="mb-0">&copy; 2025 SwiftAssist. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Simulate loading mechanics
+        document.addEventListener('DOMContentLoaded', function() {
+            // In a real app, this would be an API call
+            setTimeout(function() {
+                document.querySelector('.loading-spinner').classList.add('d-none');
+                document.getElementById('mechanicsList').classList.remove('d-none');
+            }, 1500);
+            
+            // Set user location from previous page or geolocation
+            if(localStorage.getItem('userLocation')) {
+                document.getElementById('userLocation').textContent = localStorage.getItem('userLocation');
+            }
+        });
+        
+        // Handle mechanic selection
+        function selectMechanic(mechanicId) {
+            // Remove selected class from all cards
+            document.querySelectorAll('.mechanic-card').forEach(card => {
+                card.classList.remove('selected');
+            });
+            
+            // Add selected class to clicked card
+            const selectedCard = document.getElementById(mechanicId);
+            selectedCard.classList.add('selected');
+            
+            // Update all buttons
+            document.querySelectorAll('.btn-select').forEach(btn => {
+                btn.innerHTML = 'Select This Mechanic';
+                btn.classList.remove('btn-primary');
+                btn.classList.add('btn-outline-primary');
+            });
+            
+            // Update selected button
+            const selectedBtn = selectedCard.querySelector('.btn-select');
+            selectedBtn.innerHTML = '<i class="bi bi-check-circle me-2"></i> Selected';
+            selectedBtn.classList.remove('btn-outline-primary');
+            selectedBtn.classList.add('btn-primary');
+            
+            // Update confirmation section
+            const mechanicName = selectedCard.querySelector('h5').textContent;
+            document.getElementById('selectedMechanicName').textContent = mechanicName;
+            document.getElementById('confirmationSection').classList.remove('d-none');
+            
+            // Scroll to confirmation section
+            document.getElementById('confirmationSection').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        }
+        
+        // Handle confirmation
+        function confirmSelection() {
+            // In a real app, this would send the selection to your backend
+            alert('Mechanic confirmed! You will receive an OTP for verification shortly.');
+            
+            // Redirect to tracking page
+            // window.location.href = 'tracking.html';
+        }
+    </script>
+</body>
+</html>

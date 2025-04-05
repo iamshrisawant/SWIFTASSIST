@@ -28,7 +28,7 @@
             background-size: cover;
             background-position: center;
             color: white;
-            padding: 120px 0;
+            padding: 150px 0 100px;
             position: relative;
         }
         
@@ -38,64 +38,100 @@
         }
         
         .hero-section h1 {
-            font-size: 3rem;
+            font-size: 3.2rem;
             font-weight: 700;
             margin-bottom: 20px;
+            line-height: 1.2;
         }
         
         .hero-section .lead {
-            font-size: 1.25rem;
+            font-size: 1.3rem;
             margin-bottom: 30px;
             color: var(--warning);
         }
         
-        .feature-item {
-            display: flex;
-            align-items: center;
+        .hero-badge {
+            background-color: var(--warning);
+            color: var(--dark);
+            padding: 8px 15px;
+            border-radius: 30px;
+            font-weight: 600;
+            display: inline-block;
             margin-bottom: 20px;
         }
         
-        .feature-icon {
-            width: 60px;
-            height: 60px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border-radius: 50%;
-            margin-right: 15px;
-            flex-shrink: 0;
+        /* Stats Section */
+        .stats-section {
+            background-color: var(--primary);
+            color: white;
+            padding: 60px 0;
+            margin-top: -50px;
+            border-radius: 15px;
+            position: relative;
+            z-index: 3;
+            box-shadow: 0 10px 30px rgba(13, 110, 253, 0.3);
         }
         
-        /* Services Section */
-        .services-section {
-            padding: 80px 0;
-            background-color: var(--light);
+        .stat-item {
+            text-align: center;
+            padding: 0 20px;
+        }
+        
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+        
+        .stat-label {
+            font-size: 1rem;
+            opacity: 0.9;
+        }
+        
+        /* Features Section */
+        .features-section {
+            padding: 100px 0;
+            background-color: white;
         }
         
         .section-title {
             text-align: center;
-            margin-bottom: 50px;
+            margin-bottom: 60px;
         }
         
         .section-title h2 {
             font-weight: 700;
             margin-bottom: 15px;
+            position: relative;
+            display: inline-block;
         }
         
-        .service-card {
+        .section-title h2:after {
+            content: '';
+            position: absolute;
+            width: 50px;
+            height: 3px;
+            background-color: var(--primary);
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+        
+        .feature-card {
             border: none;
             border-radius: 10px;
-            overflow: hidden;
-            transition: transform 0.3s, box-shadow 0.3s;
+            padding: 30px;
             height: 100%;
+            transition: all 0.3s ease;
+            background-color: var(--light);
         }
         
-        .service-card:hover {
+        .feature-card:hover {
             transform: translateY(-10px);
             box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
         }
         
-        .service-icon {
+        .feature-icon {
             width: 70px;
             height: 70px;
             display: flex;
@@ -103,27 +139,122 @@
             justify-content: center;
             border-radius: 50%;
             margin-bottom: 20px;
+            font-size: 1.8rem;
+            color: var(--primary);
+            background-color: rgba(13, 110, 253, 0.1);
         }
         
-        /* Features Section */
-        .features-section {
-            padding: 80px 0;
+        /* How It Works Section */
+        .process-section {
+            padding: 100px 0;
+            background-color: var(--light);
         }
         
-        .features-img {
+        .process-step {
+            position: relative;
+            padding-bottom: 30px;
+        }
+        
+        .process-step:last-child {
+            padding-bottom: 0;
+        }
+        
+        .step-number {
+            width: 50px;
+            height: 50px;
+            background-color: var(--primary);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 1.3rem;
+            margin-bottom: 15px;
+        }
+        
+        .process-step h4 {
+            margin-bottom: 15px;
+        }
+        
+        /* Testimonials Section */
+        .testimonials-section {
+            padding: 100px 0;
+            background-color: white;
+        }
+        
+        .testimonial-card {
             border-radius: 10px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            padding: 30px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            height: 100%;
+        }
+        
+        .testimonial-text {
+            font-style: italic;
+            margin-bottom: 20px;
+            position: relative;
+        }
+        
+        .testimonial-text:before {
+            content: '"';
+            font-size: 4rem;
+            color: rgba(13, 110, 253, 0.1);
+            position: absolute;
+            top: -20px;
+            left: -10px;
+            line-height: 1;
+        }
+        
+        .testimonial-author {
+            display: flex;
+            align-items: center;
+        }
+        
+        .testimonial-author img {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            margin-right: 15px;
+            object-fit: cover;
+        }
+        
+        .author-name {
+            font-weight: 600;
+            margin-bottom: 0;
+        }
+        
+        .author-rating {
+            color: var(--warning);
+        }
+        
+        /* Trust Badges Section */
+        .trust-section {
+            padding: 60px 0;
+            background-color: var(--light);
+        }
+        
+        .trust-badge {
+            height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            filter: grayscale(100%);
+            opacity: 0.7;
+            transition: all 0.3s ease;
+        }
+        
+        .trust-badge:hover {
+            filter: grayscale(0);
+            opacity: 1;
         }
         
         /* CTA Section */
         .cta-section {
-            background: linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.8)), url('https://images.unsplash.com/photo-1508514177221-188b1cf16e9d?ixlib=rb-4.0.3');
-            background-size: cover;
-            background-position: center;
+            padding: 100px 0;
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
             color: white;
-            padding: 80px 0;
             text-align: center;
-            position: relative;
         }
         
         .cta-section h2 {
@@ -131,10 +262,10 @@
             margin-bottom: 20px;
         }
         
-        .cta-section .lead {
-            opacity: 0.9;
-            margin-bottom: 30px;
+        .cta-buttons {
+            margin-top: 40px;
         }
+        
         
         /* Footer */
         footer {
@@ -221,17 +352,12 @@
                     <li class="nav-item">
                         <a class="nav-link active" href="#">Home</a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#services">Services</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#features">Features</a>
-                    </li>
+                   
                     <li class="nav-item">
                         <a class="nav-link" href="#contact">Contact</a>
                     </li>
                     <li class="nav-item ms-lg-3">
-                        <a class="btn btn-warning" href="#request">Request Service</a>
+                        <a class="btn btn-warning" href="form.html">Request Service</a>
                     </li>
                 </ul>
             </div>
@@ -244,114 +370,58 @@
             <div class="row align-items-center">
                 <div class="col-lg-6">
                     <div class="hero-content">
-                        <span class="badge bg-warning text-dark mb-3 px-3 py-2">24/7 Available</span>
-                        <h1>Professional Roadside Assistance When You Need It Most</h1>
+                        <span class="hero-badge">
+                            <i class="bi bi-lightning-fill me-2"></i>24/7 Emergency Service
+                        </span>
+                        <h1>Trusted Roadside Assistance When You Need It Most</h1>
                         <p class="lead">
-                            Expert mechanics ready to help you anytime, anywhere. Fast, reliable, and professional service at your fingertips.
+                            Connect with certified mechanics in minutes. Transparent pricing, real-time tracking, and peace of mind.
                         </p>
                         <div class="d-flex flex-wrap gap-3 mb-5">
-                            <a href="#request" class="btn btn-warning btn-lg pulse">
+                            <a href="form.html" class="btn btn-warning btn-lg">
                                 <i class="bi bi-tools me-2"></i> Request Service
                             </a>
-                            <a href="tel:+18005551234" class="btn btn-outline-light btn-lg">
-                                <i class="bi bi-telephone-fill me-2"></i> Emergency Call
+                            <a href="chatbot.html" class="btn btn-outline-light btn-lg">
+                                <i class="bi bi-telephone-fill me-2"></i> Self Assist Chatbot
                             </a>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-4">
-                                <div class="feature-item">
-                                    <div class="feature-icon bg-warning bg-opacity-10">
-                                        <i class="bi bi-shield-check fs-4 text-warning"></i>
-                                    </div>
-                                    <div>
-                                        <h6 class="mb-1 fw-bold text-warning">Trusted Service</h6>
-                                        <p class="mb-0 small text-light">Verified Mechanics</p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-4">
-                                <div class="feature-item">
-                                    <div class="feature-icon bg-info bg-opacity-10">
-                                        <i class="bi bi-clock-history fs-4 text-info"></i>
-                                    </div>
-                                    <div>
-                                        <h6 class="mb-1 fw-bold text-warning">Quick Response</h6>
-                                        <p class="mb-0 small text-light">15-30 Minutes</p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-4">
-                                <div class="feature-item">
-                                    <div class="feature-icon bg-success bg-opacity-10">
-                                        <i class="bi bi-geo-alt fs-4 text-success"></i>
-                                    </div>
-                                    <div>
-                                        <h6 class="mb-1 fw-bold text-warning">Wide Coverage</h6>
-                                        <p class="mb-0 small text-light">All Major Cities</p>
-                                    </div>
-                                </div>
-                            </div>
                         </div>
                     </div>
                 </div>
                 <div class="col-lg-6 d-none d-lg-block">
-                    <img src="https://images.unsplash.com/photo-1551830820-330a71b99659?ixlib=rb-4.0.3" alt="Roadside Assistance" class="img-fluid rounded-4 shadow-lg">
+                    <div class="ratio ratio-16x9">
+                        <iframe src="https://www.youtube.com/embed/VIDEO_ID" title="How SwiftAssist Works" allowfullscreen></iframe>
+                    </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Services Section -->
-    <section id="services" class="services-section">
+    <!-- Stats Section -->
+    <section class="stats-section">
         <div class="container">
-            <div class="section-title">
-                <span class="text-primary fw-semibold mb-2 d-block">Our Services</span>
-                <h2>Professional Assistance Services</h2>
-                <p class="lead text-muted mx-auto" style="max-width: 600px;">
-                    We offer comprehensive roadside assistance solutions to get you back on the road safely and quickly
-                </p>
-            </div>
-            <div class="row g-4">
-                <div class="col-lg-4 col-md-6">
-                    <div class="card service-card h-100">
-                        <div class="card-body p-4 text-center">
-                            <div class="service-icon bg-warning bg-opacity-10 mx-auto mb-4">
-                                <i class="bi bi-truck fs-3 text-warning"></i>
-                            </div>
-                            <h4 class="h5 mb-3 fw-bold">Emergency Towing</h4>
-                            <p class="text-muted mb-4">Professional towing service with careful handling of your vehicle</p>
-                            <a href="#" class="btn btn-outline-warning fw-semibold">
-                                Learn More <i class="bi bi-arrow-right ms-2"></i>
-                            </a>
-                        </div>
+            <div class="row">
+                <div class="col-md-3">
+                    <div class="stat-item">
+                        <div class="stat-number">15,000+</div>
+                        <div class="stat-label">Happy Customers</div>
                     </div>
                 </div>
-                <div class="col-lg-4 col-md-6">
-                    <div class="card service-card h-100">
-                        <div class="card-body p-4 text-center">
-                            <div class="service-icon bg-success bg-opacity-10 mx-auto mb-4">
-                                <i class="bi bi-battery-charging fs-3 text-success"></i>
-                            </div>
-                            <h4 class="h5 mb-3 fw-bold">Battery Service</h4>
-                            <p class="text-muted mb-4">Quick jump-start and battery replacement services</p>
-                            <a href="#" class="btn btn-outline-success fw-semibold">
-                                Learn More <i class="bi bi-arrow-right ms-2"></i>
-                            </a>
-                        </div>
+                <div class="col-md-3">
+                    <div class="stat-item">
+                        <div class="stat-number">98%</div>
+                        <div class="stat-label">Satisfaction Rate</div>
                     </div>
                 </div>
-                <div class="col-lg-4 col-md-6">
-                    <div class="card service-card h-100">
-                        <div class="card-body p-4 text-center">
-                            <div class="service-icon bg-primary bg-opacity-10 mx-auto mb-4">
-                                <i class="bi bi-fuel-pump fs-3 text-primary"></i>
-                            </div>
-                            <h4 class="h5 mb-3 fw-bold">Fuel Delivery</h4>
-                            <p class="text-muted mb-4">Emergency fuel delivery when you run out of gas</p>
-                            <a href="#" class="btn btn-outline-primary fw-semibold">
-                                Learn More <i class="bi bi-arrow-right ms-2"></i>
-                            </a>
-                        </div>
+                <div class="col-md-3">
+                    <div class="stat-item">
+                        <div class="stat-number">24/7</div>
+                        <div class="stat-label">Availability</div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="stat-item">
+                        <div class="stat-number">25 min</div>
+                        <div class="stat-label">Avg. Response Time</div>
                     </div>
                 </div>
             </div>
@@ -359,51 +429,195 @@
     </section>
 
     <!-- Features Section -->
-    <section id="features" class="features-section">
+    <section id="services" class="features-section">
         <div class="container">
-            <div class="row align-items-center">
-                <div class="col-lg-6 mb-5 mb-lg-0">
-                    <img src="https://images.unsplash.com/photo-1601584115197-04ecc0da31d8?ixlib=rb-4.0.3" alt="Roadside Assistance Features" class="img-fluid features-img">
+            <div class="section-title">
+                <span class="text-primary fw-semibold mb-2 d-block">Why Choose Us</span>
+                <h2>Our Premium Services</h2>
+                <p class="text-muted mx-auto" style="max-width: 700px;">
+                    Comprehensive roadside assistance solutions to get you back on the road safely and quickly
+                </p>
+            </div>
+            <div class="row g-4">
+                <div class="col-lg-4 col-md-6">
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="bi bi-truck"></i>
+                        </div>
+                        <h3>Emergency Towing</h3>
+                        <p>Professional towing service with careful handling of your vehicle to the nearest repair shop.</p>
+                        <a href="#" class="text-primary fw-semibold text-decoration-none">
+                            Learn More <i class="bi bi-arrow-right ms-2"></i>
+                        </a>
+                    </div>
                 </div>
-                <div class="col-lg-6">
-                    <div class="ps-lg-5">
-                        <span class="text-primary fw-semibold mb-2 d-block">Why Choose Us</span>
-                        <h2>Experience the Best in Roadside Assistance</h2>
-                        <div class="mt-4">
-                            <div class="feature-item">
-                                <div class="feature-icon bg-danger bg-opacity-10">
-                                    <i class="bi bi-clock fs-4 text-danger"></i>
-                                </div>
-                                <div>
-                                    <h4 class="h6 fw-bold mb-2">24/7 Emergency Service</h4>
-                                    <p class="text-muted mb-0">Round-the-clock support for your peace of mind</p>
+                <div class="col-lg-4 col-md-6">
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="bi bi-battery-charging"></i>
+                        </div>
+                        <h3>Jump Start</h3>
+                        <p>Quick jump-start service when your battery dies. We'll get you back on the road in no time.</p>
+                        <a href="#" class="text-primary fw-semibold text-decoration-none">
+                            Learn More <i class="bi bi-arrow-right ms-2"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6">
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="bi bi-tire"></i>
+                        </div>
+                        <h3>Tire Change</h3>
+                        <p>Flat tire? Our mechanics will come to you and replace it with your spare quickly and safely.</p>
+                        <a href="#" class="text-primary fw-semibold text-decoration-none">
+                            Learn More <i class="bi bi-arrow-right ms-2"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6">
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="bi bi-fuel-pump"></i>
+                        </div>
+                        <h3>Fuel Delivery</h3>
+                        <p>Ran out of gas? We'll bring enough fuel to get you to the nearest gas station.</p>
+                        <a href="#" class="text-primary fw-semibold text-decoration-none">
+                            Learn More <i class="bi bi-arrow-right ms-2"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6">
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="bi bi-key"></i>
+                        </div>
+                        <h3>Lockout Service</h3>
+                        <p>Locked your keys in the car? Our experts will help you get back in without damage.</p>
+                        <a href="#" class="text-primary fw-semibold text-decoration-none">
+                            Learn More <i class="bi bi-arrow-right ms-2"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6">
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="bi bi-shield-check"></i>
+                        </div>
+                        <h3>Verified Mechanics</h3>
+                        <p>All our mechanics are background-checked, certified, and rated by customers.</p>
+                        <a href="#" class="text-primary fw-semibold text-decoration-none">
+                            Learn More <i class="bi bi-arrow-right ms-2"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- How It Works Section -->
+    <section id="how-it-works" class="process-section">
+        <div class="container">
+            <div class="section-title">
+                <span class="text-primary fw-semibold mb-2 d-block">Our Process</span>
+                <h2>How SwiftAssist Works</h2>
+                <p class="text-muted mx-auto" style="max-width: 700px;">
+                    Getting help has never been easier. Just follow these simple steps
+                </p>
+            </div>
+            <div class="row justify-content-center">
+                <div class="col-lg-8">
+                    <div class="process-step">
+                        <div class="step-number">1</div>
+                        <h4>Request Assistance</h4>
+                        <p>Tell us about your issue through our app or website. Just a few taps and help is on the way.</p>
+                    </div>
+                    <div class="process-step">
+                        <div class="step-number">2</div>
+                        <h4>Get Multiple Quotes</h4>
+                        <p>We'll show you nearby available mechanics with their prices and estimated arrival times.</p>
+                    </div>
+                    <div class="process-step">
+                        <div class="step-number">3</div>
+                        <h4>Choose Your Mechanic</h4>
+                        <p>Select the best option based on price, rating, and ETA. No surprises, just transparent service.</p>
+                    </div>
+                    <div class="process-step">
+                        <div class="step-number">4</div>
+                        <h4>Track & Receive Help</h4>
+                        <p>Watch your mechanic arrive in real-time. All our professionals are verified and rated.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section class="testimonials-section">
+        <div class="container">
+            <div class="section-title">
+                <span class="text-primary fw-semibold mb-2 d-block">Testimonials</span>
+                <h2>What Our Customers Say</h2>
+                <p class="text-muted mx-auto" style="max-width: 700px;">
+                    Don't just take our word for it. Here's what our customers have to say about our service
+                </p>
+            </div>
+            <div class="row g-4">
+                <div class="col-lg-4">
+                    <div class="testimonial-card">
+                        <div class="testimonial-text">
+                            SwiftAssist saved me when I had a flat tire on the highway at night. The mechanic arrived in 15 minutes and had me back on the road quickly. Amazing service!
+                        </div>
+                        <div class="testimonial-author">
+                            <img src="https://randomuser.me/api/portraits/women/32.jpg" alt="Sarah J.">
+                            <div>
+                                <p class="author-name mb-1">Sarah J.</p>
+                                <div class="author-rating">
+                                    <i class="bi bi-star-fill"></i>
+                                    <i class="bi bi-star-fill"></i>
+                                    <i class="bi bi-star-fill"></i>
+                                    <i class="bi bi-star-fill"></i>
+                                    <i class="bi bi-star-fill"></i>
                                 </div>
                             </div>
-                            <div class="feature-item mt-4">
-                                <div class="feature-icon bg-success bg-opacity-10">
-                                    <i class="bi bi-person-check fs-4 text-success"></i>
-                                </div>
-                                <div>
-                                    <h4 class="h6 fw-bold mb-2">Expert Mechanics</h4>
-                                    <p class="text-muted mb-0">Certified professionals with years of experience</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="testimonial-card">
+                        <div class="testimonial-text">
+                            I locked my keys in the car with my baby inside. SwiftAssist had someone there in 8 minutes! The mechanic was professional and got us in without any damage.
+                        </div>
+                        <div class="testimonial-author">
+                            <img src="https://randomuser.me/api/portraits/men/45.jpg" alt="Michael T.">
+                            <div>
+                                <p class="author-name mb-1">Michael T.</p>
+                                <div class="author-rating">
+                                    <i class="bi bi-star-fill"></i>
+                                    <i class="bi bi-star-fill"></i>
+                                    <i class="bi bi-star-fill"></i>
+                                    <i class="bi bi-star-fill"></i>
+                                    <i class="bi bi-star-fill"></i>
                                 </div>
                             </div>
-                            <div class="feature-item mt-4">
-                                <div class="feature-icon bg-info bg-opacity-10">
-                                    <i class="bi bi-geo-alt fs-4 text-info"></i>
-                                </div>
-                                <div>
-                                    <h4 class="h6 fw-bold mb-2">Live Tracking</h4>
-                                    <p class="text-muted mb-0">Real-time location tracking of your mechanic</p>
-                                </div>
-                            </div>
-                            <div class="feature-item mt-4">
-                                <div class="feature-icon bg-warning bg-opacity-10">
-                                    <i class="bi bi-cash fs-4 text-warning"></i>
-                                </div>
-                                <div>
-                                    <h4 class="h6 fw-bold mb-2">Clear Pricing</h4>
-                                    <p class="text-muted mb-0">Transparent pricing with no hidden charges</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="testimonial-card">
+                        <div class="testimonial-text">
+                            The transparency of pricing is what I love most. No hidden fees, and I could choose from multiple mechanics. Will definitely use again and recommend to friends.
+                        </div>
+                        <div class="testimonial-author">
+                            <img src="https://randomuser.me/api/portraits/women/68.jpg" alt="Lisa M.">
+                            <div>
+                                <p class="author-name mb-1">Lisa M.</p>
+                                <div class="author-rating">
+                                    <i class="bi bi-star-fill"></i>
+                                    <i class="bi bi-star-fill"></i>
+                                    <i class="bi bi-star-fill"></i>
+                                    <i class="bi bi-star-fill"></i>
+                                    <i class="bi bi-star-half"></i>
                                 </div>
                             </div>
                         </div>
@@ -413,22 +627,40 @@
         </div>
     </section>
 
-    <!-- CTA Section -->
-    <section id="request" class="cta-section">
+    <!-- Trust Badges Section -->
+    <section class="trust-section">
         <div class="container">
             <div class="row justify-content-center">
-                <div class="col-lg-8 text-center">
-                    <h2>Need Immediate Assistance?</h2>
-                    <p class="lead">
-                        Don't let vehicle troubles stop you. Our professional team is ready to help 24/7.
-                    </p>
-                    <a href="#request" class="btn btn-warning btn-lg pulse">
-                        <i class="bi bi-tools me-2"></i> Get Help Now
-                    </a>
+                <div class="col-6 col-md-2">
+                    <div class="trust-badge">
+                        <img src="https://via.placeholder.com/150x60?text=AAA" alt="AAA Rated" class="img-fluid">
+                    </div>
+                </div>
+                <div class="col-6 col-md-2">
+                    <div class="trust-badge">
+                        <img src="https://via.placeholder.com/150x60?text=Verified" alt="Verified" class="img-fluid">
+                    </div>
+                </div>
+                <div class="col-6 col-md-2">
+                    <div class="trust-badge">
+                        <img src="https://via.placeholder.com/150x60?text=Google" alt="Google Partner" class="img-fluid">
+                    </div>
+                </div>
+                <div class="col-6 col-md-2">
+                    <div class="trust-badge">
+                        <img src="https://via.placeholder.com/150x60?text=Secure" alt="Secure Payments" class="img-fluid">
+                    </div>
+                </div>
+                <div class="col-6 col-md-2">
+                    <div class="trust-badge">
+                        <img src="https://via.placeholder.com/150x60?text=24/7" alt="24/7 Support" class="img-fluid">
+                    </div>
                 </div>
             </div>
         </div>
     </section>
+
+
 
     <!-- Footer -->
     <footer id="contact">
