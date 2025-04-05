@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Request Roadside Assistance | SwiftAssist</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
+    <style>
+        :root {
+            --primary: #0d6efd;
+            --warning: #ffc107;
+            --danger: #dc3545;
+            --success: #198754;
+            --info: #0dcaf0;
+            --dark: #212529;
+            --light: #f8f9fa;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--light);
+        }
+        
+        .request-container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 30px 15px;
+        }
+        
+        .request-card {
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            overflow: hidden;
+        }
+        
+        .request-header {
+            padding: 25px;
+            background-color: var(--primary);
+            color: white;
+        }
+        
+        .request-header h1 {
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+        
+        .request-body {
+            padding: 25px;
+        }
+        
+        .form-label {
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+        
+        .form-control, .form-select {
+            padding: 12px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+        
+        .btn-request {
+            width: 100%;
+            padding: 12px;
+            font-weight: 600;
+            margin-top: 10px;
+        }
+        
+        .what-to-expect {
+            background-color: rgba(var(--primary-rgb), 0.05);
+            border-radius: 10px;
+            padding: 20px;
+            margin-top: 30px;
+        }
+        
+        .what-to-expect h3 {
+            color: var(--primary);
+            margin-bottom: 15px;
+        }
+        
+        .expect-item {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 10px;
+        }
+        
+        .expect-icon {
+            color: var(--primary);
+            margin-right: 10px;
+            margin-top: 3px;
+        }
+        
+        .emergency-contact {
+            background-color: rgba(var(--danger-rgb), 0.05);
+            border-radius: 10px;
+            padding: 20px;
+            margin-top: 20px;
+            text-align: center;
+        }
+        
+        .emergency-contact h4 {
+            color: var(--danger);
+            margin-bottom: 10px;
+        }
+        
+        .emergency-contact a {
+            color: var(--danger);
+            font-weight: 600;
+            text-decoration: none;
+        }
+        
+        @media (max-width: 768px) {
+            .request-header h1 {
+                font-size: 1.8rem;
+            }
+            
+            .request-body {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container">
+            <a class="navbar-brand" href="index.html">
+                <h2 class="mb-0">SwiftAssist</h2>
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.html">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="services.html">Services</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="request.html">Request Help</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="contact.html">Contact</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Request Form Section -->
+    <div class="request-container">
+        <div class="request-card">
+            <div class="request-header">
+                <h1>Request Roadside Assistance</h1>
+                <p>Fill out the form below to request immediate assistance</p>
+            </div>
+            
+            <div class="request-body">
+                <form id="assistanceForm">
+                    <div class="alert alert-danger d-none" id="errorAlert"></div>
+                    
+                    <div class="mb-4">
+                        <label for="vehicleType" class="form-label">Select Vehicle Type</label>
+                        <select class="form-select" id="vehicleType" required>
+                            <option value="" selected disabled>Select your vehicle type</option>
+                            <option value="car">Car</option>
+                            <option value="suv">SUV</option>
+                            <option value="truck">Truck</option>
+                            <option value="motorcycle">Motorcycle</option>
+                        </select>
+                    </div>
+                    
+                    <div class="mb-4">
+                        <label for="vehicleMake" class="form-label">Vehicle Make</label>
+                        <input type="text" class="form-control" id="vehicleMake" placeholder="e.g., Toyota, Honda" required>
+                    </div>
+                    
+                    <div class="mb-4">
+                        <label for="vehicleModel" class="form-label">Vehicle Model</label>
+                        <input type="text" class="form-control" id="vehicleModel" placeholder="e.g., Camry, Civic" required>
+                    </div>
+                    
+                    <div class="mb-4">
+                        <label for="location" class="form-label">Enter your current location</label>
+                        <div class="input-group">
+                            <input type="text" class="form-control" id="location" required>
+                            <button class="btn btn-outline-secondary" type="button" id="useCurrentLocation">
+                                <i class="bi bi-geo-alt"></i> Use Current
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div class="mb-4">
+                        <label for="contactNumber" class="form-label">Contact Number</label>
+                        <input type="tel" class="form-control" id="contactNumber" placeholder="Enter your phone number" required>
+                    </div>
+                    
+                    <div class="mb-4">
+                        <label for="issueType" class="form-label">Type of Issue</label>
+                        <select class="form-select" id="issueType" required>
+                            <option value="" selected disabled>Select your issue</option>
+                            <option value="flat_tire">Flat Tire</option>
+                            <option value="battery">Dead Battery</option>
+                            <option value="out_of_gas">Out of Gas</option>
+                            <option value="lockout">Locked Out</option>
+                            <option value="other">Other</option>
+                        </select>
+                    </div>
+                    
+                    <div class="mb-4">
+                        <label for="description" class="form-label">Additional Details</label>
+                        <textarea class="form-control" id="description" rows="3" placeholder="Provide any additional information about your situation"></textarea>
+                    </div>
+                    
+                    <button type="submit" class="btn btn-primary btn-request" id="submitBtn">
+                        <i class="bi bi-tools me-2"></i> Request Service
+                    </button>
+                </form>
+                
+                <div class="what-to-expect">
+                    <h3>What to Expect</h3>
+                    <div class="expect-item">
+                        <div class="expect-icon"><i class="bi bi-lightning-fill"></i></div>
+                        <div>Quick response time</div>
+                    </div>
+                    <div class="expect-item">
+                        <div class="expect-icon"><i class="bi bi-person-check-fill"></i></div>
+                        <div>Professional mechanics</div>
+                    </div>
+                    <div class="expect-item">
+                        <div class="expect-icon"><i class="bi bi-geo-alt-fill"></i></div>
+                        <div>Real-time tracking</div>
+                    </div>
+                    <div class="expect-item">
+                        <div class="expect-icon"><i class="bi bi-shield-lock-fill"></i></div>
+                        <div>Secure payment options</div>
+                    </div>
+                </div>
+                
+                <div class="emergency-contact">
+                    <h4><i class="bi bi-exclamation-triangle-fill me-2"></i>Emergency Contact</h4>
+                    <p>Need immediate assistance? Call our 24/7 helpline</p>
+                    <a href="tel:18007623437"><i class="bi bi-telephone-fill me-2"></i>1-800-ROAD-HELP</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-dark text-white py-4">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <h5>SwiftAssist</h5>
+                    <p>Smart Roadside Assistance connecting drivers with mechanics for faster, safer journeys.</p>
+                </div>
+                <div class="col-md-3">
+                    <h5>Quick Links</h5>
+                    <ul class="list-unstyled">
+                        <li><a href="index.html" class="text-white text-decoration-none">Home</a></li>
+                        <li><a href="services.html" class="text-white text-decoration-none">Services</a></li>
+                        <li><a href="request.html" class="text-white text-decoration-none">Request Help</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-3">
+                    <h5>Contact</h5>
+                    <ul class="list-unstyled">
+                        <li><i class="bi bi-telephone me-2"></i> (800) 555-1234</li>
+                        <li><i class="bi bi-envelope me-2"></i> help@swiftassist.com</li>
+                    </ul>
+                </div>
+            </div>
+            <hr>
+            <div class="text-center">
+                <p class="mb-0">&copy; 2025 SwiftAssist. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const form = document.getElementById('assistanceForm');
+            const errorAlert = document.getElementById('errorAlert');
+            const submitBtn = document.getElementById('submitBtn');
+            const useCurrentLocationBtn = document.getElementById('useCurrentLocation');
+            
+            // Handle form submission
+            form.addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                // Validate form
+                if (!form.checkValidity()) {
+                    form.classList.add('was-validated');
+                    return;
+                }
+                
+                // Simulate form submission
+                submitBtn.disabled = true;
+                submitBtn.innerHTML = '<span class="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>Submitting...';
+                
+                // In a real app, you would send this data to your backend
+                setTimeout(function() {
+                    // Simulate successful submission
+                    alert('Your request has been submitted! A mechanic will be with you shortly.');
+                    form.reset();
+                    submitBtn.disabled = false;
+                    submitBtn.innerHTML = '<i class="bi bi-tools me-2"></i> Request Service';
+                    
+                    // In a real app, you would redirect to tracking page
+                    // window.location.href = 'tracking.html?id=123';
+                }, 2000);
+            });
+            
+            // Handle current location button
+            useCurrentLocationBtn.addEventListener('click', function() {
+                if (navigator.geolocation) {
+                    useCurrentLocationBtn.disabled = true;
+                    useCurrentLocationBtn.innerHTML = '<span class="spinner-border spinner-border-sm me-1" role="status" aria-hidden="true"></span>Locating...';
+                    
+                    navigator.geolocation.getCurrentPosition(
+                        function(position) {
+                            // Success - get approximate address (simulated)
+                            const address = "Near " + 
+                                Math.round(position.coords.latitude * 100) / 100 + ", " + 
+                                Math.round(position.coords.longitude * 100) / 100;
+                            
+                            document.getElementById('location').value = address;
+                            useCurrentLocationBtn.disabled = false;
+                            useCurrentLocationBtn.innerHTML = '<i class="bi bi-geo-alt"></i> Use Current';
+                        },
+                        function(error) {
+                            showError('Please enable location access or enter manually');
+                            useCurrentLocationBtn.disabled = false;
+                            useCurrentLocationBtn.innerHTML = '<i class="bi bi-geo-alt"></i> Use Current';
+                        }
+                    );
+                } else {
+                    showError('Geolocation not supported by your browser');
+                }
+            });
+            
+            function showError(message) {
+                errorAlert.textContent = message;
+                errorAlert.classList.remove('d-none');
+                setTimeout(() => errorAlert.classList.add('d-none'), 5000);
+            }
+        });
+    </script>
+</body>
+</html>

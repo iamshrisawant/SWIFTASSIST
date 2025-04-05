@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Complete Your Profile | SwiftAssist</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
+    <style>
+        :root {
+            --primary: #0d6efd;
+            --warning: #ffc107;
+            --danger: #dc3545;
+            --success: #198754;
+            --info: #0dcaf0;
+            --dark: #212529;
+            --light: #f8f9fa;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--light);
+        }
+        
+        .profile-container {
+            max-width: 800px;
+            margin: 50px auto;
+            background-color: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+        
+        .profile-header {
+            background-color: var(--primary);
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+        
+        .profile-header h1 {
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+        
+        .profile-body {
+            padding: 30px;
+        }
+        
+        .profile-progress {
+            margin-bottom: 30px;
+        }
+        
+        .profile-avatar {
+            width: 120px;
+            height: 120px;
+            background-color: #eee;
+            border-radius: 50%;
+            margin: 0 auto 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            position: relative;
+        }
+        
+        .profile-avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .profile-avatar-edit {
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            background-color: var(--primary);
+            color: white;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+        }
+        
+        .form-label {
+            font-weight: 500;
+        }
+        
+        .form-control, .form-select {
+            padding: 12px;
+            margin-bottom: 20px;
+        }
+        
+        .btn-save {
+            padding: 12px;
+            font-weight: 600;
+            margin-top: 20px;
+        }
+        
+        .vehicle-info {
+            background-color: rgba(var(--primary-rgb), 0.05);
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="profile-container">
+        <div class="profile-header">
+            <h1>Complete Your Profile</h1>
+            <p>Help us serve you better by providing a few details</p>
+        </div>
+        
+        <div class="profile-body">
+            <div class="profile-progress">
+                <div class="progress">
+                    <div class="progress-bar bg-primary" style="width: 25%"></div>
+                </div>
+                <div class="text-end mt-1 text-muted">Step 1 of 4</div>
+            </div>
+            
+            <div class="text-center mb-4">
+                <div class="profile-avatar">
+                    <i class="bi bi-person-fill" style="font-size: 3rem; color: #aaa;"></i>
+                    <div class="profile-avatar-edit">
+                        <i class="bi bi-camera-fill"></i>
+                    </div>
+                </div>
+                <h4>Welcome, User!</h4>
+            </div>
+            
+            <form id="profileForm">
+                <div class="mb-3">
+                    <label for="fullName" class="form-label">Full Name</label>
+                    <input type="text" class="form-control" id="fullName" required>
+                </div>
+                
+                <div class="mb-3">
+                    <label for="phone" class="form-label">Phone Number</label>
+                    <input type="tel" class="form-control" id="phone" required>
+                </div>
+                
+                <div class="vehicle-info">
+                    <h5 class="mb-3"><i class="bi bi-car-front me-2"></i>Vehicle Information</h5>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <label for="vehicleMake" class="form-label">Make</label>
+                            <input type="text" class="form-control" id="vehicleMake" required>
+                        </div>
+                        <div class="col-md-6">
+                            <label for="vehicleModel" class="form-label">Model</label>
+                            <input type="text" class="form-control" id="vehicleModel" required>
+                        </div>
+                    </div>
+                    <div class="row mt-2">
+                        <div class="col-md-6">
+                            <label for="vehicleYear" class="form-label">Year</label>
+                            <input type="text" class="form-control" id="vehicleYear" required>
+                        </div>
+                        <div class="col-md-6">
+                            <label for="vehicleColor" class="form-label">Color</label>
+                            <input type="text" class="form-control" id="vehicleColor" required>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="mb-3">
+                    <label for="address" class="form-label">Home Address (Optional)</label>
+                    <input type="text" class="form-control" id="address">
+                    <div class="form-text">Helps us locate you faster in emergencies</div>
+                </div>
+                
+                <button type="submit" class="btn btn-primary w-100 btn-save">Save & Continue</button>
+            </form>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Form submission
+            document.getElementById('profileForm').addEventListener('submit', function(e) {
+                e.preventDefault();
+                // Simulate form submission
+                console.log('Profile form submitted');
+                window.location.href = 'home.html';
+            });
+            
+            // Avatar edit button
+            document.querySelector('.profile-avatar-edit').addEventListener('click', function() {
+                alert('Avatar upload functionality would be implemented here');
+            });
+        });
+    </script>
+</body>
+</html>
