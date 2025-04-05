@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Help & Support | SwiftAssist</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
+    <style>
+        :root {
+            --primary: #0d6efd;
+            --warning: #ffc107;
+            --danger: #dc3545;
+            --success: #198754;
+            --info: #0dcaf0;
+            --dark: #212529;
+            --light: #f8f9fa;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--light);
+        }
+        
+        .support-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 30px 15px;
+        }
+        
+        .support-header {
+            margin-bottom: 30px;
+        }
+        
+        .support-header h1 {
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+        
+        .support-header p {
+            color: var(--dark);
+            opacity: 0.8;
+            font-size: 1.1rem;
+        }
+        
+        .emergency-card {
+            background-color: var(--danger);
+            color: white;
+            border-radius: 10px;
+            padding: 30px;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+        
+        .emergency-card h2 {
+            margin-bottom: 15px;
+        }
+        
+        .emergency-card p {
+            font-size: 1.2rem;
+            margin-bottom: 25px;
+        }
+        
+        .btn-emergency {
+            padding: 12px 25px;
+            font-weight: 600;
+            margin: 0 10px;
+        }
+        
+        .faq-card, .contact-card, .info-card {
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            padding: 25px;
+            margin-bottom: 30px;
+        }
+        
+        .faq-card h3, .contact-card h3, .info-card h3 {
+            margin-bottom: 20px;
+            font-weight: 600;
+        }
+        
+        .accordion-button {
+            font-weight: 500;
+            padding: 15px;
+        }
+        
+        .accordion-button:not(.collapsed) {
+            background-color: rgba(var(--primary-rgb), 0.05);
+            color: var(--dark);
+        }
+        
+        .accordion-body {
+            padding: 15px;
+        }
+        
+        .contact-info-item {
+            margin-bottom: 20px;
+        }
+        
+        .contact-info-item h5 {
+            font-size: 1rem;
+            margin-bottom: 5px;
+        }
+        
+        .contact-info-item p {
+            margin-bottom: 5px;
+        }
+        
+        .contact-info-item small {
+            color: var(--dark);
+            opacity: 0.7;
+        }
+        
+        .service-area-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+        
+        .service-area-item i {
+            color: var(--success);
+            margin-right: 10px;
+        }
+        
+        textarea {
+            min-height: 150px;
+        }
+        
+        @media (max-width: 768px) {
+            .emergency-card .btn-group {
+                flex-direction: column;
+                gap: 10px;
+            }
+            
+            .emergency-card .btn {
+                width: 100%;
+                margin: 5px 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container">
+            <a class="navbar-brand" href="index.html">
+                <h2 class="mb-0">SwiftAssist</h2>
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.html">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="services.html">Services</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="support.html">Support</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="contact.html">Contact</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Support Section -->
+    <div class="support-container">
+        <div class="support-header">
+            <h1>Help & Support</h1>
+            <p>Get assistance with your roadside service needs</p>
+        </div>
+        
+        <!-- Emergency Support Card -->
+        <div class="emergency-card">
+            <h2>Emergency Support Available 24/7</h2>
+            <p>Need immediate assistance? Our emergency support team is here to help.</p>
+            <div class="d-flex flex-wrap justify-content-center">
+                <a href="tel:18007623437" class="btn btn-light btn-emergency">
+                    <i class="bi bi-telephone-fill me-2"></i> Call Emergency
+                </a>
+                <button class="btn btn-outline-light btn-emergency" id="liveChatBtn">
+                    <i class="bi bi-chat-dots-fill me-2"></i> Live Chat
+                </button>
+            </div>
+        </div>
+        
+        <div class="row">
+            <div class="col-lg-8">
+                <!-- FAQ Section -->
+                <div class="faq-card">
+                    <h3>Frequently Asked Questions</h3>
+                    <div class="accordion" id="faqAccordion">
+                        <div class="accordion-item">
+                            <h2 class="accordion-header">
+                                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#faq1">
+                                    How quickly can I expect assistance?
+                                </button>
+                            </h2>
+                            <div id="faq1" class="accordion-collapse collapse show" data-bs-parent="#faqAccordion">
+                                <div class="accordion-body">
+                                    Our average response time is 15-30 minutes, depending on your location and traffic conditions. 
+                                    We prioritize emergency situations and always aim to reach you as quickly as possible.
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="accordion-item">
+                            <h2 class="accordion-header">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq2">
+                                    What services do you provide?
+                                </button>
+                            </h2>
+                            <div id="faq2" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                                <div class="accordion-body">
+                                    We offer a wide range of roadside assistance services including:
+                                    <ul class="mb-0">
+                                        <li>Emergency towing</li>
+                                        <li>Battery jump-start</li>
+                                        <li>Tire replacement</li>
+                                        <li>Fuel delivery</li>
+                                        <li>Lockout service</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="accordion-item">
+                            <h2 class="accordion-header">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq3">
+                                    How do I track my service?
+                                </button>
+                            </h2>
+                            <div id="faq3" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                                <div class="accordion-body">
+                                    Once your service request is accepted, you can track the mechanic's location 
+                                    and estimated arrival time through our live tracking feature in the app or website.
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="accordion-item">
+                            <h2 class="accordion-header">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq4">
+                                    What payment methods do you accept?
+                                </button>
+                            </h2>
+                            <div id="faq4" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                                <div class="accordion-body">
+                                    We accept all major credit cards, digital wallets (Google Pay, Apple Pay), 
+                                    and bank transfers. All payments are processed securely through our payment gateway.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Contact Form -->
+                <div class="contact-card">
+                    <h3>Contact Support</h3>
+                    <form id="supportForm">
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label for="name" class="form-label">Name</label>
+                                <input type="text" class="form-control" id="name" required>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="email" class="form-label">Email</label>
+                                <input type="email" class="form-control" id="email" required>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="subject" class="form-label">Subject</label>
+                            <input type="text" class="form-control" id="subject" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="message" class="form-label">Message</label>
+                            <textarea class="form-control" id="message" required></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Send Message</button>
+                    </form>
+                </div>
+            </div>
+            
+            <div class="col-lg-4">
+                <!-- Contact Information -->
+                <div class="info-card">
+                    <h3>Contact Information</h3>
+                    <div class="contact-info-item">
+                        <h5>Emergency Helpline</h5>
+                        <p class="mb-0">1-800-ROAD-HELP</p>
+                        <small>Available 24/7</small>
+                    </div>
+                    <div class="contact-info-item">
+                        <h5>Email Support</h5>
+                        <p class="mb-0">support@roadassist.com</p>
+                        <small>Response within 24 hours</small>
+                    </div>
+                    <div class="contact-info-item">
+                        <h5>Office Hours</h5>
+                        <p class="mb-0">Monday - Friday: 9:00 AM - 6:00 PM</p>
+                        <small>For non-emergency inquiries</small>
+                    </div>
+                </div>
+                
+                <!-- Service Areas -->
+                <div class="info-card">
+                    <h3>Service Areas</h3>
+                    <p class="mb-3">We currently provide service in the following areas:</p>
+                    <div class="service-area-item">
+                        <i class="bi bi-check-circle-fill"></i>
+                        <span>Downtown Area</span>
+                    </div>
+                    <div class="service-area-item">
+                        <i class="bi bi-check-circle-fill"></i>
+                        <span>Suburban Areas</span>
+                    </div>
+                    <div class="service-area-item">
+                        <i class="bi bi-check-circle-fill"></i>
+                        <span>Highway Routes</span>
+                    </div>
+                    <div class="service-area-item">
+                        <i class="bi bi-check-circle-fill"></i>
+                        <span>Rural Areas</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-dark text-white py-4">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <h5>SwiftAssist</h5>
+                    <p>Smart Roadside Assistance connecting drivers with mechanics for faster, safer journeys.</p>
+                </div>
+                <div class="col-md-3">
+                    <h5>Quick Links</h5>
+                    <ul class="list-unstyled">
+                        <li><a href="index.html" class="text-white text-decoration-none">Home</a></li>
+                        <li><a href="services.html" class="text-white text-decoration-none">Services</a></li>
+                        <li><a href="support.html" class="text-white text-decoration-none">Support</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-3">
+                    <h5>Contact</h5>
+                    <ul class="list-unstyled">
+                        <li><i class="bi bi-telephone me-2"></i> (800) 555-1234</li>
+                        <li><i class="bi bi-envelope me-2"></i> help@swiftassist.com</li>
+                    </ul>
+                </div>
+            </div>
+            <hr>
+            <div class="text-center">
+                <p class="mb-0">&copy; 2025 SwiftAssist. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Live Chat button handler
+            document.getElementById('liveChatBtn').addEventListener('click', function() {
+                alert('Live chat is currently offline. Please call our emergency helpline for immediate assistance.');
+            });
+            
+            // Contact form submission
+            const supportForm = document.getElementById('supportForm');
+            supportForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                // Validate form
+                if (!supportForm.checkValidity()) {
+                    supportForm.classList.add('was-validated');
+                    return;
+                }
+                
+                // Get form values
+                const name = document.getElementById('name').value;
+                const email = document.getElementById('email').value;
+                const subject = document.getElementById('subject').value;
+                const message = document.getElementById('message').value;
+                
+                // Simulate form submission
+                const submitBtn = supportForm.querySelector('button');
+                submitBtn.disabled = true;
+                submitBtn.innerHTML = '<span class="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>Sending...';
+                
+                setTimeout(function() {
+                    alert(`Thank you, ${name}! Your message has been sent. We'll respond to you at ${email} within 24 hours.`);
+                    supportForm.reset();
+                    supportForm.classList.remove('was-validated');
+                    submitBtn.disabled = false;
+                    submitBtn.innerHTML = 'Send Message';
+                }, 2000);
+            });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,510 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reviews & Ratings | SwiftAssist</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
+    <style>
+        :root {
+            --primary: #0d6efd;
+            --warning: #ffc107;
+            --danger: #dc3545;
+            --success: #198754;
+            --info: #0dcaf0;
+            --dark: #212529;
+            --light: #f8f9fa;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--light);
+        }
+        
+        .reviews-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 30px 15px;
+        }
+        
+        .reviews-header {
+            margin-bottom: 30px;
+        }
+        
+        .reviews-header h1 {
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+        
+        .reviews-header p {
+            color: var(--dark);
+            opacity: 0.8;
+            font-size: 1.1rem;
+        }
+        
+        .rating-card {
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            padding: 25px;
+            margin-bottom: 30px;
+        }
+        
+        .overall-rating {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        
+        .rating-number {
+            font-size: 3.5rem;
+            font-weight: 700;
+            margin-right: 20px;
+            line-height: 1;
+        }
+        
+        .stars {
+            color: var(--warning);
+            font-size: 1.8rem;
+            letter-spacing: 3px;
+        }
+        
+        .review-card {
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            padding: 25px;
+            margin-bottom: 25px;
+        }
+        
+        .review-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+        
+        .review-avatar {
+            width: 50px;
+            height: 50px;
+            background-color: var(--primary);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            margin-right: 15px;
+            font-size: 1.2rem;
+        }
+        
+        .review-user {
+            flex: 1;
+        }
+        
+        .review-user-name {
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+        
+        .review-service {
+            color: var(--dark);
+            opacity: 0.7;
+            font-size: 0.9rem;
+        }
+        
+        .review-stars {
+            color: var(--warning);
+            margin-bottom: 10px;
+        }
+        
+        .review-content {
+            line-height: 1.6;
+        }
+        
+        .stats-card {
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            padding: 25px;
+            margin-bottom: 30px;
+        }
+        
+        .stats-item {
+            margin-bottom: 15px;
+        }
+        
+        .stats-label {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 5px;
+        }
+        
+        .progress {
+            height: 8px;
+        }
+        
+        .write-review {
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            padding: 25px;
+        }
+        
+        .rating-input {
+            font-size: 1.8rem;
+            letter-spacing: 5px;
+            margin-bottom: 20px;
+        }
+        
+        .rating-input .bi-star {
+            cursor: pointer;
+            transition: color 0.2s;
+        }
+        
+        .rating-input .bi-star:hover,
+        .rating-input .bi-star.active {
+            color: var(--warning);
+        }
+        
+        textarea {
+            min-height: 120px;
+        }
+        
+        @media (max-width: 768px) {
+            .rating-number {
+                font-size: 2.5rem;
+            }
+            
+            .stars {
+                font-size: 1.4rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container">
+            <a class="navbar-brand" href="index.html">
+                <h2 class="mb-0">SwiftAssist</h2>
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.html">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="services.html">Services</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="reviews.html">Reviews</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="contact.html">Contact</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Reviews Section -->
+    <div class="reviews-container">
+        <div class="reviews-header">
+            <h1>Reviews & Ratings</h1>
+            <p>See what our customers say about our service</p>
+        </div>
+        
+        <div class="row">
+            <div class="col-lg-8">
+                <div class="rating-card">
+                    <h3>Overall Rating</h3>
+                    <div class="overall-rating">
+                        <div class="rating-number">4.8</div>
+                        <div class="stars">
+                            <i class="bi bi-star-fill"></i>
+                            <i class="bi bi-star-fill"></i>
+                            <i class="bi bi-star-fill"></i>
+                            <i class="bi bi-star-fill"></i>
+                            <i class="bi bi-star-half"></i>
+                        </div>
+                    </div>
+                    <p class="mb-0">Based on 1,234 reviews</p>
+                </div>
+                
+                <div class="d-flex justify-content-between align-items-center mb-4">
+                    <h3>Recent Reviews</h3>
+                    <select class="form-select" style="width: auto;">
+                        <option selected>All Reviews</option>
+                        <option>5 Stars</option>
+                        <option>4 Stars</option>
+                        <option>3 Stars</option>
+                        <option>2 Stars</option>
+                        <option>1 Star</option>
+                    </select>
+                </div>
+                
+                <div class="review-card">
+                    <div class="review-header">
+                        <div class="review-avatar">JD</div>
+                        <div class="review-user">
+                            <div class="review-user-name">John Doe</div>
+                            <div class="review-service">Emergency Towing Service #12345</div>
+                        </div>
+                    </div>
+                    <div class="review-stars">
+                        <i class="bi bi-star-fill"></i>
+                        <i class="bi bi-star-fill"></i>
+                        <i class="bi bi-star-fill"></i>
+                        <i class="bi bi-star-fill"></i>
+                        <i class="bi bi-star-fill"></i>
+                    </div>
+                    <div class="review-content">
+                        Excellent service! The mechanic arrived quickly and was very professional. He helped me with my flat tire and even checked other potential issues. Highly recommended!
+                    </div>
+                </div>
+                
+                <div class="review-card">
+                    <div class="review-header">
+                        <div class="review-avatar">SM</div>
+                        <div class="review-user">
+                            <div class="review-user-name">Sarah Miller</div>
+                            <div class="review-service">Battery Jump Start Service #12346</div>
+                        </div>
+                    </div>
+                    <div class="review-stars">
+                        <i class="bi bi-star-fill"></i>
+                        <i class="bi bi-star-fill"></i>
+                        <i class="bi bi-star-fill"></i>
+                        <i class="bi bi-star-fill"></i>
+                        <i class="bi bi-star"></i>
+                    </div>
+                    <div class="review-content">
+                        Quick response time and friendly service. My battery was dead and they got me back on the road in no time. Would have given 5 stars but the app had some glitches during payment.
+                    </div>
+                </div>
+                
+                <div class="review-card">
+                    <div class="review-header">
+                        <div class="review-avatar">RJ</div>
+                        <div class="review-user">
+                            <div class="review-user-name">Robert Johnson</div>
+                            <div class="review-service">Fuel Delivery Service #12347</div>
+                        </div>
+                    </div>
+                    <div class="review-stars">
+                        <i class="bi bi-star-fill"></i>
+                        <i class="bi bi-star-fill"></i>
+                        <i class="bi bi-star-fill"></i>
+                        <i class="bi bi-star-fill"></i>
+                        <i class="bi bi-star-fill"></i>
+                    </div>
+                    <div class="review-content">
+                        Ran out of gas on the highway at night. SwiftAssist saved the day! The driver was there within 20 minutes and was super courteous. Very impressed with the service.
+                    </div>
+                </div>
+                
+                <nav aria-label="Page navigation">
+                    <ul class="pagination justify-content-center">
+                        <li class="page-item disabled">
+                            <a class="page-link" href="#" tabindex="-1">Previous</a>
+                        </li>
+                        <li class="page-item active"><a class="page-link" href="#">1</a></li>
+                        <li class="page-item"><a class="page-link" href="#">2</a></li>
+                        <li class="page-item"><a class="page-link" href="#">3</a></li>
+                        <li class="page-item">
+                            <a class="page-link" href="#">Next</a>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+            
+            <div class="col-lg-4">
+                <div class="stats-card">
+                    <h3>Review Statistics</h3>
+                    <div class="stats-item">
+                        <div class="stats-label">
+                            <span>5 Stars</span>
+                            <span>85%</span>
+                        </div>
+                        <div class="progress">
+                            <div class="progress-bar bg-warning" style="width: 85%"></div>
+                        </div>
+                    </div>
+                    <div class="stats-item">
+                        <div class="stats-label">
+                            <span>4 Stars</span>
+                            <span>10%</span>
+                        </div>
+                        <div class="progress">
+                            <div class="progress-bar bg-warning" style="width: 10%"></div>
+                        </div>
+                    </div>
+                    <div class="stats-item">
+                        <div class="stats-label">
+                            <span>3 Stars</span>
+                            <span>3%</span>
+                        </div>
+                        <div class="progress">
+                            <div class="progress-bar bg-warning" style="width: 3%"></div>
+                        </div>
+                    </div>
+                    <div class="stats-item">
+                        <div class="stats-label">
+                            <span>2 Stars</span>
+                            <span>1%</span>
+                        </div>
+                        <div class="progress">
+                            <div class="progress-bar bg-warning" style="width: 1%"></div>
+                        </div>
+                    </div>
+                    <div class="stats-item">
+                        <div class="stats-label">
+                            <span>1 Star</span>
+                            <span>1%</span>
+                        </div>
+                        <div class="progress">
+                            <div class="progress-bar bg-warning" style="width: 1%"></div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="write-review">
+                    <h3>Write a Review</h3>
+                    <div class="rating-input mb-3">
+                        <i class="bi bi-star"></i>
+                        <i class="bi bi-star"></i>
+                        <i class="bi bi-star"></i>
+                        <i class="bi bi-star"></i>
+                        <i class="bi bi-star"></i>
+                    </div>
+                    <div class="mb-3">
+                        <label for="reviewTitle" class="form-label">Title</label>
+                        <input type="text" class="form-control" id="reviewTitle" placeholder="Summarize your experience">
+                    </div>
+                    <div class="mb-3">
+                        <label for="reviewText" class="form-label">Your Review</label>
+                        <textarea class="form-control" id="reviewText" placeholder="Share details of your experience"></textarea>
+                    </div>
+                    <button class="btn btn-primary w-100">Submit Review</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-dark text-white py-4">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <h5>SwiftAssist</h5>
+                    <p>Smart Roadside Assistance connecting drivers with mechanics for faster, safer journeys.</p>
+                </div>
+                <div class="col-md-3">
+                    <h5>Quick Links</h5>
+                    <ul class="list-unstyled">
+                        <li><a href="index.html" class="text-white text-decoration-none">Home</a></li>
+                        <li><a href="services.html" class="text-white text-decoration-none">Services</a></li>
+                        <li><a href="reviews.html" class="text-white text-decoration-none">Reviews</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-3">
+                    <h5>Contact</h5>
+                    <ul class="list-unstyled">
+                        <li><i class="bi bi-telephone me-2"></i> (800) 555-1234</li>
+                        <li><i class="bi bi-envelope me-2"></i> help@swiftassist.com</li>
+                    </ul>
+                </div>
+            </div>
+            <hr>
+            <div class="text-center">
+                <p class="mb-0">&copy; 2025 SwiftAssist. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Star rating interaction
+            const stars = document.querySelectorAll('.rating-input .bi-star');
+            let selectedRating = 0;
+            
+            stars.forEach((star, index) => {
+                star.addEventListener('click', function() {
+                    selectedRating = index + 1;
+                    
+                    // Update star display
+                    stars.forEach((s, i) => {
+                        if (i <= index) {
+                            s.classList.add('bi-star-fill');
+                            s.classList.remove('bi-star');
+                        } else {
+                            s.classList.add('bi-star');
+                            s.classList.remove('bi-star-fill');
+                        }
+                    });
+                });
+                
+                star.addEventListener('mouseover', function() {
+                    // Highlight stars on hover
+                    stars.forEach((s, i) => {
+                        if (i <= index) {
+                            s.classList.add('active');
+                        } else {
+                            s.classList.remove('active');
+                        }
+                    });
+                });
+                
+                star.addEventListener('mouseout', function() {
+                    // Reset to selected rating when mouse leaves
+                    stars.forEach((s, i) => {
+                        if (selectedRating === 0 || i >= selectedRating) {
+                            s.classList.remove('active');
+                        }
+                    });
+                });
+            });
+            
+            // Form submission
+            const reviewForm = document.querySelector('.write-review');
+            const submitBtn = reviewForm.querySelector('button');
+            
+            submitBtn.addEventListener('click', function() {
+                if (selectedRating === 0) {
+                    alert('Please select a rating');
+                    return;
+                }
+                
+                const title = document.getElementById('reviewTitle').value;
+                const text = document.getElementById('reviewText').value;
+                
+                if (!title || !text) {
+                    alert('Please fill in all fields');
+                    return;
+                }
+                
+                // Simulate form submission
+                submitBtn.disabled = true;
+                submitBtn.innerHTML = '<span class="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>Submitting...';
+                
+                setTimeout(function() {
+                    alert('Thank you for your review!');
+                    reviewForm.reset();
+                    stars.forEach(star => {
+                        star.classList.add('bi-star');
+                        star.classList.remove('bi-star-fill', 'active');
+                    });
+                    selectedRating = 0;
+                    submitBtn.disabled = false;
+                    submitBtn.innerHTML = 'Submit Review';
+                }, 1500);
+            });
+        });
+    </script>
+</body>
+</html>
