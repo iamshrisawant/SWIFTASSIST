@@ -1,7 +1,9 @@
-from langdetect import detect
+from langdetect import detect, DetectorFactory
+
+DetectorFactory.seed = 0  # Deterministic results
 
 def detect_language(text: str) -> str:
     try:
         return detect(text)
-    except:
-        return "unknown"
+    except Exception:
+        return "en"
