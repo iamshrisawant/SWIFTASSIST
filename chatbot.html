@@ -1,0 +1,650 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Self-Service Chatbot | SwiftAssist</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
+    <style>
+        :root {
+            --primary: #0d6efd;
+            --warning: #ffc107;
+            --danger: #dc3545;
+            --success: #198754;
+            --info: #0dcaf0;
+            --dark: #212529;
+            --light: #f8f9fa;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--light);
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .chatbot-container {
+            max-width: 800px;
+            margin: 20px auto;
+            background-color: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .chatbot-header {
+            background-color: var(--primary);
+            color: white;
+            padding: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        
+        .chatbot-header-left {
+            display: flex;
+            align-items: center;
+        }
+        
+        .chatbot-header-icon {
+            width: 50px;
+            height: 50px;
+            background-color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 15px;
+            color: var(--primary);
+            font-size: 1.5rem;
+        }
+        
+        .chatbot-header h2 {
+            font-weight: 600;
+            margin-bottom: 0;
+        }
+        
+        .chatbot-body {
+            flex: 1;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+        }
+        
+        .chat-messages {
+            flex: 1;
+            padding: 20px;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .message {
+            margin-bottom: 15px;
+            max-width: 80%;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .bot-message {
+            align-self: flex-start;
+        }
+        
+        .user-message {
+            align-self: flex-end;
+        }
+        
+        .message-bubble {
+            padding: 12px 15px;
+            border-radius: 18px;
+            display: inline-block;
+            max-width: 100%;
+            word-wrap: break-word;
+        }
+        
+        .bot-bubble {
+            background-color: #f0f0f0;
+            border-bottom-left-radius: 5px;
+            color: var(--dark);
+        }
+        
+        .user-bubble {
+            background-color: var(--primary);
+            color: white;
+            border-bottom-right-radius: 5px;
+        }
+        
+        .message-time {
+            font-size: 0.7rem;
+            color: var(--dark);
+            opacity: 0.6;
+            margin-top: 5px;
+        }
+        
+        .chat-input {
+            border-top: 1px solid #eee;
+            padding: 15px;
+            background-color: white;
+        }
+        
+        .input-group {
+            position: relative;
+        }
+        
+        .chat-input-field {
+            border-radius: 25px;
+            padding: 12px 50px 12px 20px;
+            border: 1px solid #ddd;
+            resize: none;
+            width: 100%;
+        }
+        
+        .chat-send-btn {
+            position: absolute;
+            right: 5px;
+            top: 5px;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .quick-replies {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 15px;
+        }
+        
+        .quick-reply {
+            background-color: #f0f0f0;
+            border-radius: 20px;
+            padding: 8px 15px;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+        
+        .quick-reply:hover {
+            background-color: #e0e0e0;
+        }
+        
+        .suggestion-cards {
+            display: flex;
+            gap: 15px;
+            margin-top: 15px;
+            overflow-x: auto;
+            padding-bottom: 10px;
+        }
+        
+        .suggestion-card {
+            min-width: 200px;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+            padding: 15px;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+        
+        .suggestion-card:hover {
+            transform: translateY(-3px);
+        }
+        
+        .suggestion-card h5 {
+            font-size: 1rem;
+            margin-bottom: 10px;
+            color: var(--primary);
+        }
+        
+        .suggestion-card p {
+            font-size: 0.8rem;
+            color: var(--dark);
+            opacity: 0.8;
+            margin-bottom: 0;
+        }
+        
+        .typing-indicator {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+        
+        .typing-dot {
+            width: 8px;
+            height: 8px;
+            background-color: #aaa;
+            border-radius: 50%;
+            margin-right: 5px;
+            animation: typingAnimation 1.4s infinite ease-in-out;
+        }
+        
+        .typing-dot:nth-child(1) {
+            animation-delay: 0s;
+        }
+        
+        .typing-dot:nth-child(2) {
+            animation-delay: 0.2s;
+        }
+        
+        .typing-dot:nth-child(3) {
+            animation-delay: 0.4s;
+        }
+        
+        @keyframes typingAnimation {
+            0%, 60%, 100% { transform: translateY(0); }
+            30% { transform: translateY(-5px); }
+        }
+        
+        .chatbot-actions {
+            display: flex;
+            gap: 10px;
+        }
+        
+        .btn-action {
+            padding: 5px 10px;
+            font-size: 0.8rem;
+            border-radius: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="chatbot-container">
+        <div class="chatbot-header">
+            <div class="chatbot-header-left">
+                <div class="chatbot-header-icon">
+                    <i class="bi bi-robot"></i>
+                </div>
+                <h2>SwiftAssist Bot</h2>
+            </div>
+            <div class="chatbot-actions">
+                <button class="btn btn-outline-light btn-action" id="transferBtn">
+                    <i class="bi bi-person"></i> Live Agent
+                </button>
+                <button class="btn btn-outline-light btn-action" id="endChatBtn">
+                    <i class="bi bi-x-lg"></i> End Chat
+                </button>
+            </div>
+        </div>
+        
+        <div class="chatbot-body">
+            <div class="chat-messages" id="chatMessages">
+                <div class="message bot-message">
+                    <div class="message-bubble bot-bubble">
+                        Hi there! I'm your SwiftAssist helper. How can I assist you with your vehicle today?
+                    </div>
+                    <div class="message-time">Just now</div>
+                </div>
+                
+                <div class="message bot-message">
+                    <div class="message-bubble bot-bubble">
+                        You can describe your issue or choose from these common problems:
+                    </div>
+                    <div class="quick-replies">
+                        <div class="quick-reply" data-reply="My car won't start">My car won't start</div>
+                        <div class="quick-reply" data-reply="Flat tire">Flat tire</div>
+                        <div class="quick-reply" data-reply="Out of gas">Out of gas</div>
+                        <div class="quick-reply" data-reply="Battery issues">Battery issues</div>
+                    </div>
+                    
+                    <div class="suggestion-cards">
+                        <div class="suggestion-card" data-reply="Jump start my car">
+                            <h5><i class="bi bi-battery-charging me-2"></i>Jump Start</h5>
+                            <p>Help with a dead battery</p>
+                        </div>
+                        <div class="suggestion-card" data-reply="Change a flat tire">
+                            <h5><i class="bi bi-truck-flatbed me-2"></i>Flat Tire</h5>
+                            <p>Need help with tire change</p>
+                        </div>
+                        <div class="suggestion-card" data-reply="Locked out of my car">
+                            <h5><i class="bi bi-key me-2"></i>Lockout</h5>
+                            <p>Can't access my vehicle</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="chat-input">
+                <div class="input-group">
+                    <textarea class="form-control chat-input-field" id="userInput" placeholder="Type your message here..." rows="1"></textarea>
+                    <button class="chat-send-btn" id="sendMessage">
+                        <i class="bi bi-send"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Integration Options Modal -->
+    <div class="modal fade" id="integrationModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Chatbot Integration Options</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <h6>Choose how to connect your custom chatbot:</h6>
+                    <div class="mb-3">
+                        <label class="form-label">Webhook URL</label>
+                        <input type="text" class="form-control" id="webhookUrl" placeholder="https://your-chatbot-service.com/api">
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">API Key (if required)</label>
+                        <input type="text" class="form-control" id="apiKey" placeholder="Your API key">
+                    </div>
+                    <div class="form-check mb-3">
+                        <input class="form-check-input" type="checkbox" id="enableCustomBot">
+                        <label class="form-check-label" for="enableCustomBot">
+                            Enable custom chatbot integration
+                        </label>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" id="saveIntegration">Save Settings</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const chatMessages = document.getElementById('chatMessages');
+            const userInput = document.getElementById('userInput');
+            const sendButton = document.getElementById('sendMessage');
+            const quickReplies = document.querySelectorAll('.quick-reply');
+            const suggestionCards = document.querySelectorAll('.suggestion-card');
+            const transferBtn = document.getElementById('transferBtn');
+            const endChatBtn = document.getElementById('endChatBtn');
+            
+            // Initialize modal
+            const integrationModal = new bootstrap.Modal(document.getElementById('integrationModal'));
+            
+            // For demonstration: Show integration options
+            // In a real implementation, this would be in an admin panel
+            console.log("To connect your custom chatbot:");
+            console.log("1. Uncomment the custom chatbot integration code below");
+            console.log("2. Set your webhook URL and API key");
+            console.log("3. Implement the sendToCustomBot function with your API calls");
+            
+            // Auto-resize textarea
+            userInput.addEventListener('input', function() {
+                this.style.height = 'auto';
+                this.style.height = (this.scrollHeight) + 'px';
+            });
+            
+            // Send message function
+            function sendMessage() {
+                const messageText = userInput.value.trim();
+                if (messageText === '') return;
+                
+                // Add user message to chat
+                addMessage(messageText, 'user');
+                
+                // Clear input
+                userInput.value = '';
+                userInput.style.height = 'auto';
+                
+                // Show typing indicator
+                showTypingIndicator();
+                
+                // Here you would typically:
+                // 1. Send the message to your chatbot backend
+                // 2. Receive and display the response
+                
+                // For demo purposes, we'll simulate a response
+                setTimeout(() => {
+                    // Remove typing indicator
+                    removeTypingIndicator();
+                    
+                    // Check if we should transfer to custom bot
+                    if (document.getElementById('enableCustomBot')?.checked) {
+                        sendToCustomBot(messageText);
+                    } else {
+                        // Default bot responses
+                        const botResponses = [
+                            "I understand you're having issues with your vehicle. Let me help you troubleshoot.",
+                            "Based on your description, here are some things you can try:",
+                            "Would you like me to connect you with a mechanic for this issue?",
+                            "I can guide you through some basic troubleshooting steps for this problem."
+                        ];
+                        
+                        const randomResponse = botResponses[Math.floor(Math.random() * botResponses.length)];
+                        addMessage(randomResponse, 'bot');
+                        
+                        // Add quick replies after bot response
+                        if (Math.random() > 0.5) {
+                            setTimeout(() => {
+                                addQuickReplies([
+                                    "Yes, please guide me",
+                                    "Connect me to a mechanic",
+                                    "I fixed it, thanks!",
+                                    "Cancel"
+                                ]);
+                            }, 500);
+                        }
+                    }
+                }, 1500);
+            }
+            
+            // Function to send message to custom chatbot
+            function sendToCustomBot(message) {
+                // This is where you would integrate with your custom chatbot
+                const webhookUrl = document.getElementById('webhookUrl')?.value;
+                const apiKey = document.getElementById('apiKey')?.value;
+                
+                if (!webhookUrl) {
+                    addMessage("Custom chatbot integration is not properly configured.", 'bot');
+                    return;
+                }
+                
+                // Simulate API call to custom chatbot
+                console.log(`Sending to custom bot at ${webhookUrl}:`, message);
+                
+                // Example fetch implementation (uncomment and customize):
+                /*
+                fetch(webhookUrl, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${apiKey}`
+                    },
+                    body: JSON.stringify({
+                        message: message,
+                        userId: "current_user_id" // You would get this from your auth system
+                    })
+                })
+                .then(response => response.json())
+                .then(data => {
+                    removeTypingIndicator();
+                    // Process and display the chatbot response
+                    if (data.reply) {
+                        addMessage(data.reply, 'bot');
+                    }
+                    if (data.quickReplies) {
+                        addQuickReplies(data.quickReplies);
+                    }
+                })
+                .catch(error => {
+                    removeTypingIndicator();
+                    addMessage("Sorry, there was an error connecting to the chatbot service.", 'bot');
+                    console.error('Chatbot error:', error);
+                });
+                */
+                
+                // For demo purposes, we'll simulate a response
+                setTimeout(() => {
+                    removeTypingIndicator();
+                    addMessage("This would be the response from your custom chatbot.", 'bot');
+                    addQuickReplies(["Option 1", "Option 2", "Option 3"]);
+                }, 1000);
+            }
+            
+            // Add message to chat
+            function addMessage(text, sender) {
+                const now = new Date();
+                const timeString = now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+                
+                const messageDiv = document.createElement('div');
+                messageDiv.className = `message ${sender}-message`;
+                
+                messageDiv.innerHTML = `
+                    <div class="message-bubble ${sender}-bubble">${text}</div>
+                    <div class="message-time">${timeString}</div>
+                `;
+                
+                chatMessages.appendChild(messageDiv);
+                chatMessages.scrollTop = chatMessages.scrollHeight;
+            }
+            
+            // Show typing indicator
+            function showTypingIndicator() {
+                const typingDiv = document.createElement('div');
+                typingDiv.className = 'message bot-message typing-indicator';
+                typingDiv.id = 'typingIndicator';
+                typingDiv.innerHTML = `
+                    <div class="message-bubble bot-bubble">
+                        <div class="typing-dot"></div>
+                        <div class="typing-dot"></div>
+                        <div class="typing-dot"></div>
+                    </div>
+                `;
+                
+                chatMessages.appendChild(typingDiv);
+                chatMessages.scrollTop = chatMessages.scrollHeight;
+            }
+            
+            // Remove typing indicator
+            function removeTypingIndicator() {
+                const typingIndicator = document.getElementById('typingIndicator');
+                if (typingIndicator) {
+                    typingIndicator.remove();
+                }
+            }
+            
+            // Add quick replies
+            function addQuickReplies(replies) {
+                // Remove existing quick replies
+                document.querySelectorAll('.quick-replies').forEach(el => el.remove());
+                
+                const quickRepliesDiv = document.createElement('div');
+                quickRepliesDiv.className = 'quick-replies';
+                
+                replies.forEach(reply => {
+                    const replyDiv = document.createElement('div');
+                    replyDiv.className = 'quick-reply';
+                    replyDiv.textContent = reply;
+                    replyDiv.addEventListener('click', function() {
+                        addMessage(reply, 'user');
+                        quickRepliesDiv.remove();
+                        
+                        // Simulate bot response to quick reply
+                        showTypingIndicator();
+                        setTimeout(() => {
+                            removeTypingIndicator();
+                            addMessage("Thanks for your response. Let me help you with that.", 'bot');
+                        }, 800);
+                    });
+                    
+                    quickRepliesDiv.appendChild(replyDiv);
+                });
+                
+                const lastMessage = document.querySelector('.message:last-child');
+                if (lastMessage) {
+                    lastMessage.appendChild(quickRepliesDiv);
+                }
+                
+                chatMessages.scrollTop = chatMessages.scrollHeight;
+            }
+            
+            // Quick reply click handler
+            quickReplies.forEach(reply => {
+                reply.addEventListener('click', function() {
+                    const replyText = this.getAttribute('data-reply');
+                    addMessage(replyText, 'user');
+                    
+                    // Remove all quick replies
+                    document.querySelectorAll('.quick-replies, .suggestion-cards').forEach(el => el.remove());
+                    
+                    // Simulate bot response
+                    showTypingIndicator();
+                    setTimeout(() => {
+                        removeTypingIndicator();
+                        addMessage(`I can help with ${replyText}. Let me ask you a few questions to better understand the situation.`, 'bot');
+                    }, 1000);
+                });
+            });
+            
+            // Suggestion card click handler
+            suggestionCards.forEach(card => {
+                card.addEventListener('click', function() {
+                    const replyText = this.getAttribute('data-reply');
+                    addMessage(replyText, 'user');
+                    
+                    // Remove all quick replies and cards
+                    document.querySelectorAll('.quick-replies, .suggestion-cards').forEach(el => el.remove());
+                    
+                    // Simulate bot response
+                    showTypingIndicator();
+                    setTimeout(() => {
+                        removeTypingIndicator();
+                        addMessage(`For ${replyText}, here are the steps you can try:`, 'bot');
+                        addMessage("1. Make sure the vehicle is in park\n2. Locate the battery terminals\n3. Connect jumper cables properly\n4. Start the working vehicle first", 'bot');
+                        addQuickReplies(["I need more help", "It worked!", "Connect me to a mechanic"]);
+                    }, 1500);
+                });
+            });
+            
+            // Send button click
+            sendButton.addEventListener('click', function(e) {
+                e.preventDefault();
+                sendMessage();
+            });
+            
+            // Enter key to send
+            userInput.addEventListener('keypress', function(e) {
+                if (e.key === 'Enter' && !e.shiftKey) {
+                    e.preventDefault();
+                    sendMessage();
+                }
+            });
+            
+            // Transfer to live agent
+            transferBtn.addEventListener('click', function() {
+                addMessage("Transferring you to a live agent...", 'bot');
+                // In a real implementation, this would connect to your live chat system
+                setTimeout(() => {
+                    addMessage("All agents are currently busy. Please try again later or continue with the chatbot.", 'bot');
+                }, 2000);
+            });
+            
+            // End chat
+            endChatBtn.addEventListener('click', function() {
+                if (confirm("Are you sure you want to end this chat?")) {
+                    addMessage("Chat ended. Thank you for using SwiftAssist!", 'bot');
+                    userInput.disabled = true;
+                    sendButton.disabled = true;
+                }
+            });
+            
+            // For demonstration: Show integration options after 5 seconds
+            setTimeout(() => {
+                // integrationModal.show();
+            }, 5000);
+        });
+    </script>
+</body>
+</html>
